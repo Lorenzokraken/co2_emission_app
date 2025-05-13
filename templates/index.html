@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CO₂ Emissions</title>
+    
+    <style>
+        body {
+            background-color: #6c9a8b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: linear-gradient(135deg, #ffffff, #6c9a8b);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        select, button {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            width: 250px;
+        }
+
+        button[type="button"].add-country {
+            width: 40px;
+            margin-left: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        #ai-toggle-label {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #4e7b6b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compare CO₂ Emissions</h1>
+        <form id="main-form" method="POST" action="/">
+            <div id="countries-container">
+                <label for="country1">Country 1:</label>
+                <select name="country1" required>
+                    {% for c in countries %}
+                        <option value="{{ c.country_id }}" {% if c.name == 'United States' %}selected{% endif %}>{{ c.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="button" class="add-country" onclick="addCountrySelect()">+</button>
+
+            <label for="year_start">From Year:</label>
+            <select name="year_start" required>
+                {% for y in years %}
+                    <option value="{{ y.year }}">{{ y.year }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="year_end">To Year:</label>
+            <select name="year_end" id="year_end" required>
+                {% for y in years %}
+                    <option value="{{ y.year }}" {% if y.year == 1990 %}selected{% endif %}>{{ y.year }}</option>
+                {% endfor %}
+            </select>
+
+            <div id="ai-toggle-label">
+                <input type="checkbox" id="ai-toggle" />
+                <label for="ai-toggle">🔮 AI PREVISIONS </label>
+            </div>
+
+            <br><br>
+            <button type="submit">Genera Grafico</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        Creato da Lorenzo Iuliano – Fonti: Our World in Data
+    </div>
+
+    <script>
+        let countryCount = 1;
+
+        function addCountrySelect() {
+            if (countryCount >= 5) return;
+            countryCount++;
+            const container = document.getElementById("countries-container");
+            const newLabel = document.createElement("label");
+            newLabel.textContent = `Country ${countryCount}:`;
+            const newSelect = document.createElement("select");
+            newSelect.name = `country${countryCount}`;
+            newSelect.required = true;
+            const firstSelect = document.querySelector("select[name='country1']");
+            newSelect.innerHTML = firstSelect.innerHTML;
+            container.appendChild(newLabel);
+            container.appendChild(newSelect);
+        }
+
+        const aiToggle = document.getElementById("ai-toggle");
+        const yearEndSelect = document.getElementById("year_end");
+
+        aiToggle.addEventListener("change", () => {
+            if (aiToggle.checked) {
+                yearEndSelect.value = "2023";
+                yearEndSelect.disabled = true;
+            } else {
+                yearEndSelect.disabled = false;
+            }
+        });
+
+        document.getElementById("main-form").addEventListener("submit", function (e) {
+            const yearEnd = yearEndSelect.value;
+            const countryId = document.querySelector("select[name='country1']").value;
+            const isChecked = aiToggle.checked;
+
+            if (isChecked && yearEnd === "2023" && countryId !== "") {
+                e.preventDefault();
+                window.location.href = `/predict?country_id=${countryId}`;
+            }
+        });
+    </script>
+</body>
+</html>

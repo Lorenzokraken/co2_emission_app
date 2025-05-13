@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+instance/
+.env
+*.db
+.DS_Store
+
+#git init
+#git add .
+#git commit -m "CO2 Emissions project init"

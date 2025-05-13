@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafico CO₂</title>
+    
+    <style>
+body {
+        background-color: #6c9a8b;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        background: linear-gradient(135deg, #ffffff, #6c9a8b);
+        margin: 40px auto;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 90%;
+        box-shadow: 0 5 40px rgba(0,0,0,0.1);
+    }
+    a {
+        color: #4e7b6b;
+        font-weight: bold;
+        text-decoration: none;
+    }
+        body {
+            
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            background: linear-gradient(135deg, #ffffff, #6c9a8b);
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 90%;
+            box-shadow: 0 5 40px rgba(0,0,0,0.3);
+        }
+        a {
+            color: #3f9c7d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grafico CO₂ Interattivo</h1>
+    <div class="container">
+        {{ plot_html | safe }}
+    </div>
+    <p><a href="/">← Torna alla home</a></p>
+</body>
+</html>
