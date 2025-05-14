@@ -41,9 +41,10 @@ CO2 Emission App
 ```
 ## ▶️ Esecuzione locale
 Clona il repository:
+```
 git clone https://github.com/tuo-nome/co2-insights.git
 cd co2-insights
-
+```
 Crea ambiente virtuale e attivalo:
 ```
 python -m venv venv
