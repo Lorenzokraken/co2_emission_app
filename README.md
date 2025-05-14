@@ -12,15 +12,15 @@ L'app è sviluppata in Python con Flask, Plotly e Prophet ed è progettata per u
 - Collegamenti ai dati originali (Our World in Data)
 
 ## 🧰 Tecnologie utilizzate
-Python 3.x
-Flask (Web server)
-SQLite (Database locale)
-SQLAlchemy (ORM)
-Pandas (Gestione dati)
-Plotly (Grafici interattivi)
-Prophet (Previsioni AI)
-HTML5 + CSS3 inline (UI senza dipendenze esterne)
-Heroku (Hosting)
+- Python 3.x
+- Flask (Web server)
+- SQLite (Database locale)
+- SQLAlchemy (ORM)
+- Pandas (Gestione dati)
+- Plotly (Grafici interattivi)
+- Prophet (Previsioni AI)
+- HTML5 + CSS3 inline (UI senza dipendenze esterne)
+- Heroku (Hosting)
 
 ```
 CO2 Emission App
@@ -66,12 +66,12 @@ Potresti dover riattivare il sito e aspettare un minuto.
 
 
 ## 📄 Fonte dati
-Dati CO₂: Our World in Data
-Superficie paesi: World Bank
+- Dati CO₂: Our World in Data
+- Superficie paesi: World Bank
 
 ## ✒️ Crediti
-Creato con passione da Lorenzo Iuliano
-Font: Inter, Poppins – UI ispirata alla sostenibilità 🌿
+- Creato con passione da Lorenzo Iuliano
+- Font: Inter, Poppins – UI ispirata alla sostenibilità 🌿
 
 ## 📢 Condividi
 Ti piace il progetto?
@@ -79,8 +79,8 @@ Ti piace il progetto?
 
 
 ## ✅ To Do (idee future)
-Download grafici (.png, .csv, .pdf)
-Annotazioni su eventi storici (Kyoto, Parigi)
-Selezione multipla più fluida con rimozione
-Confronto CO₂ per abitante o per superficie
+- Download grafici (.png, .csv, .pdf)
+- Annotazioni su eventi storici (Kyoto, Parigi)
+- Selezione multipla più fluida con rimozione
+- Confronto CO₂ per abitante o per superficie
 
