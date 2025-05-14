@@ -68,6 +68,7 @@ Potresti dover riattivare il sito e aspettare un minuto.
 ## 📄 Fonte dati
 - Dati CO₂: Our World in Data
 - Superficie paesi: World Bank
+- La normalizzazione dei dati è stata gestita nel progetto co2_emission_data
 
 ## ✒️ Crediti
 - Creato con passione da Lorenzo Iuliano
