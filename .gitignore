@@ -2,7 +2,6 @@ __pycache__/
 *.pyc
 instance/
 .env
-*.db
 .DS_Store
 
 #git init
