@@ -3,7 +3,6 @@ Visualizzazione interattiva e previsioni delle emissioni di anidride carbonica (
 L'app è sviluppata in Python con Flask, Plotly e Prophet ed è progettata per un'esperienza utente elegante e responsiva.
 APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
 
-
 ## 🚀 Funzionalità principali
 - Selezione da 1 a 5 paesi da confrontare
 - Intervallo temporale personalizzabile
@@ -12,6 +11,7 @@ APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
 - Modalità confronto con media globale
 - UI moderna (palette salvia, font eleganti, layout responsive)
 - Collegamenti ai dati originali (Our World in Data)
+- Download png grafico
 
 ## 🧰 Tecnologie utilizzate
 - Python 3.x
@@ -82,7 +82,7 @@ Ti piace il progetto?
 
 
 ## ✅ To Do (idee future)
-- Download grafici (.png, .csv, .pdf)
+- Download grafici in altri formati
 - Annotazioni su eventi storici (Kyoto, Parigi)
 - Selezione multipla più fluida con rimozione
 - Confronto CO₂ per abitante o per superficie
