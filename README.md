@@ -57,8 +57,9 @@ pip install -r requirements.txt
 Esegui l'app:
 ```
 python app.py
-Visita http://localhost:5000
 ```
+Visita http://localhost:5000
+
 👤 Autore: Lorenzo Iuliano – Progetto a scopo educativo/professionale  
 🔗 [LinkedIn](https://www.linkedin.com/in/lorenzo-iuliano-852798220/)
 
