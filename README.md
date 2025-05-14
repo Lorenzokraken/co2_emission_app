@@ -1,7 +1,8 @@
 ## 📊 CO₂ Emissions Insights 
-APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
 Visualizzazione interattiva e previsioni delle emissioni di anidride carbonica (CO₂) per paese e periodo.
 L'app è sviluppata in Python con Flask, Plotly e Prophet ed è progettata per un'esperienza utente elegante e responsiva.
+APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
+
 
 ## 🚀 Funzionalità principali
 - Selezione da 1 a 5 paesi da confrontare
