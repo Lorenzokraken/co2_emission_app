@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>CO₂ Emissions</title>
-    
     <style>
         body {
             background-color: #6c9a8b;
@@ -33,7 +32,8 @@
 
         button[type="button"].add-country {
             width: 40px;
-            margin-left: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
         }
 
         label {
@@ -69,7 +69,10 @@
                 </select>
             </div>
 
-            <button type="button" class="add-country" onclick="addCountrySelect()">+</button>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button type="button" class="add-country" id="add-btn" onclick="addCountrySelect()">+</button>
+                <button type="button" class="add-country" id="remove-btn" onclick="removeCountrySelect()">−</button>
+            </div>
 
             <label for="year_start">From Year:</label>
             <select name="year_start" required>
@@ -87,7 +90,7 @@
 
             <div id="ai-toggle-label">
                 <input type="checkbox" id="ai-toggle" />
-                <label for="ai-toggle">🔮 AI PREVISIONS </label>
+                <label for="ai-toggle">🔮 AI PREVISIONS</label>
             </div>
 
             <br><br>
@@ -101,31 +104,59 @@
 
     <script>
         let countryCount = 1;
-
-        function addCountrySelect() {
-            if (countryCount >= 5) return;
-            countryCount++;
-            const container = document.getElementById("countries-container");
-            const newLabel = document.createElement("label");
-            newLabel.textContent = `Country ${countryCount}:`;
-            const newSelect = document.createElement("select");
-            newSelect.name = `country${countryCount}`;
-            newSelect.required = true;
-            const firstSelect = document.querySelector("select[name='country1']");
-            newSelect.innerHTML = firstSelect.innerHTML;
-            container.appendChild(newLabel);
-            container.appendChild(newSelect);
-        }
+        const maxCountries = 5;
 
         const aiToggle = document.getElementById("ai-toggle");
         const yearEndSelect = document.getElementById("year_end");
+        const addBtn = document.getElementById("add-btn");
+        const removeBtn = document.getElementById("remove-btn");
+        const container = document.getElementById("countries-container");
+
+        function updateAIStatus() {
+            if (countryCount > 1) {
+                aiToggle.checked = false;
+                aiToggle.disabled = true;
+                aiToggle.style.opacity = 0.5;
+            } else {
+                aiToggle.disabled = false;
+                aiToggle.style.opacity = 1;
+            }
+        }
+
+        function addCountrySelect() {
+            if (countryCount >= maxCountries || aiToggle.checked) return;
+            countryCount++;
+            const label = document.createElement("label");
+            label.textContent = `Country ${countryCount}:`;
+            const select = document.createElement("select");
+            select.name = `country${countryCount}`;
+            select.required = true;
+            const firstSelect = document.querySelector("select[name='country1']");
+            select.innerHTML = firstSelect.innerHTML;
+            container.appendChild(label);
+            container.appendChild(select);
+            updateAIStatus();
+        }
+
+        function removeCountrySelect() {
+            if (countryCount <= 1) return;
+            for (let i = 0; i < 2; i++) {
+                container.removeChild(container.lastElementChild);
+            }
+            countryCount--;
+            updateAIStatus();
+        }
 
         aiToggle.addEventListener("change", () => {
             if (aiToggle.checked) {
                 yearEndSelect.value = "2023";
                 yearEndSelect.disabled = true;
+                addBtn.disabled = true;
+                addBtn.style.opacity = 0.5;
             } else {
                 yearEndSelect.disabled = false;
+                addBtn.disabled = false;
+                addBtn.style.opacity = 1;
             }
         });
 
@@ -139,6 +170,8 @@
                 window.location.href = `/predict?country_id=${countryId}`;
             }
         });
+
+        updateAIStatus(); // Iniziale
     </script>
 </body>
 </html>
