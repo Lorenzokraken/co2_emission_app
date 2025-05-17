@@ -7,7 +7,7 @@ class Country(Base):
     country_id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
     iso_code = Column(String)
-
+    surface_km2 = Column(Integer)
     emissions = relationship("Emission", back_populates="country")
 
 class Year(Base):
@@ -25,7 +25,7 @@ class Emission(Base):
     co2 = Column(Float)
     co2_per_km2 = Column(Float)
     population = Column(Integer)
-    surface_km2 = Column(Integer)
+    
 
     country = relationship("Country", back_populates="emissions")
     year = relationship("Year", back_populates="emissions")
