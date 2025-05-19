@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>CO₂ Emissions</title>
+  <title>CO2 Emissions</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
     body {
@@ -34,13 +34,42 @@
       border: 1px solid rgba(255, 140, 0, 0.3);
       max-width: 700px;
       width: 100%;
+      position: relative;
+    }
+    .info-box {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #1e1e1e;
+      border: 1px solid #2196f3;
+      color: #2196f3;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+    .info-box:hover::after {
+      content: "Questa app confronta le emissioni CO2 tra paesi e ne prevede l'andamento futuro. Seleziona i paesi e un intervallo temporale per visualizzare i dati e previsioni.";
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #1e1e1e;
+      color: #ffffff;
+      border: 1px solid #444;
+      padding: 8px;
+      border-radius: 10px;
+      font-size: 0.85em;
+      width: 260px;
+      text-align: right;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 10;
     }
     h1 {
       color: #ff9800;
       margin-bottom: 30px;
     }
     select, button {
-      margin: 10px 0;
+      margin: 6px 0;
       padding: 10px;
       font-size: 16px;
       width: 250px;
@@ -64,11 +93,6 @@
       margin-top: 15px;
       font-weight: 600;
     }
-    #ai-toggle-label, #density-toggle-label {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #ffcc80;
-    }
     .footer {
       margin-top: 40px;
       font-size: 0.85em;
@@ -84,7 +108,11 @@
 <body>
   <div class="container-wrapper">
     <div class="container">
-      <h1>CO₂ Emissions</h1>
+      <div class="info-box">i</div>
+<h1>Emissioni CO2</h1>
+<!-- resto invariato -->
+<!--  -->
+
       <form id="main-form" method="POST" action="/">
         <div style="display: flex; flex-direction: column; align-items: center;">
           <div id="countries-container" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px;">
@@ -103,11 +131,7 @@
           </div>
         </div>
 
-        <!-- <div style="display: flex; justify-content: center; align-items: center;">
-          <button type="button" class="add-country" id="add-btn" onclick="addCountrySelect()">+</button>
-          <button type="button" class="add-country" id="remove-btn" onclick="removeCountrySelect()">&minus;</button>
-        </div> -->
-        <label for="year_start">From Year:</label>
+        <label for="year_start"></label>
         <select name="year_start" required>
           {% for y in years %}
             <option value="{{ y.year }}"
@@ -115,7 +139,7 @@
             {{ y.year }}</option>
           {% endfor %}
         </select>
-        <label for="year_end">To Year:</label>
+        <label for="year_end"></label>
         <select name="year_end" id="year_end" required>
           {% for y in years %}
             {% if y.year >= 2023 %}
@@ -127,16 +151,18 @@
           {% endfor %}
         </select>
 
-        <div id="ai-toggle-label">
-          <input type="checkbox" id="ai-toggle" name="ai"
-          {% if ai %}checked{% endif %}>
-          <label for="ai-toggle">AI PREVISIONS</label>
-        </div>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px;">
+          <div id="ai-toggle-label">
+            <input type="checkbox" id="ai-toggle" name="ai"
+            {% if ai %}checked{% endif %}>
+            <label for="ai-toggle">AI PREVISIONS</label>
+          </div>
 
-        <div id="density-toggle-label">
-          <input type="checkbox" id="density-toggle" name="show_density"
-          {% if show_density %}checked{% endif %}>
-          <label for="density-toggle">Visualizza CO₂ / km²</label>
+          <div id="density-toggle-label">
+            <input type="checkbox" id="density-toggle" name="show_density"
+            {% if show_density %}checked{% endif %}>
+            <label for="density-toggle">Visualizza CO₂ / km²</label>
+          </div>
         </div>
 
         <br><br>
@@ -182,29 +208,14 @@
       if (countryCount >= maxCountries || aiToggle.checked) return;
       countryCount++;
 
-      const countries = [
-        { id: 1, name: "United States" },
-        { id: 2, name: "China" },
-        { id: 3, name: "United Kingdom" },
-        { id: 4, name: "France" },
-        { id: 5, name: "Italy" }
-      ];
-
+      const firstSelect = document.querySelector("select[name='country1']");
       const select = document.createElement("select");
       select.name = `country${countryCount}`;
       select.required = true;
-
-      countries.forEach(c => {
-        const option = document.createElement("option");
-        option.value = c.id;
-        option.textContent = c.name;
-        select.appendChild(option);
-      });
-
+      select.innerHTML = firstSelect.innerHTML; // copia tutti gli <option> dal primo
       container.appendChild(select);
       updateAIStatus();
     }
-
 
     function removeCountrySelect() {
       if (countryCount <= 1) return;
