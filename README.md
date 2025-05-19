@@ -27,7 +27,7 @@ Questa pagina rappresenta il punto di partenza per l'esplorazione delle emission
 
 ```
 co2_emission_app/
-├── app.py                      # Script principale Flask
+├── app.py                     # Script principale Flask
 ├── co2_emissions.db           # Database SQLite con i dati CO2
 ├── database.py                # Connessione DB e sessione SQLAlchemy
 ├── models.py                  # Modelli SQLAlchemy per Country, Year, Emission
