@@ -4,14 +4,15 @@ L'app è sviluppata in Python con Flask, Plotly e Prophet ed è progettata per u
 APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
 
 ## 🚀 Funzionalità principali
-- Selezione da 1 a 5 paesi da confrontare
-- Intervallo temporale personalizzabile
-- Grafici interattivi Plotly
-- Previsioni con AI (Prophet) fino al 2060
-- Modalità confronto con media globale
-- UI moderna (palette salvia, font eleganti, layout responsive)
-- Collegamenti ai dati originali (Our World in Data)
-- Download png grafico
+
+- ✅ Selezione **fino a 5 paesi** da confrontare, tramite menù dinamici generati al click su “+”.
+- ✅ I paesi selezionati vengono **mantenuti anche dopo il submit**, permettendo un confronto iterativo senza perdere i dati.
+- ✅ Aggiunta una **tooltip informativa** in alto a destra che spiega lo scopo dell'app (hover su `i`).
+- ✅ Miglioramenti all’**accessibilità**: ogni `label` è ora collegata correttamente all’`id` del relativo input.
+- ✅ Interfaccia scura con accenti arancione fluorescente in stile dashboard moderna.
+
+Questa pagina rappresenta il punto di partenza per l'esplorazione delle emissioni globali e le relative previsioni AI.
+
 
 ## 🧰 Tecnologie utilizzate
 - Python 3.x
@@ -25,19 +26,22 @@ APRI QUI -> 🔗[Render](https://co2-emission-app-i5yz.onrender.com/)
 - Heroku (Hosting)
 
 ```
-CO2 Emission App
-├── app.py
-├── database/
-│   └── models.py, schema.db
-├── templates/
-│   ├── index.html
-│   ├── plot.html
-│   └── forecast.html
-├── static/
-│   └── style.css (opzionale)
-├── owid-co2-data.csv
-├── surface_fixed.csv
-└── README.md
+co2_emission_app/
+├── app.py                      # Script principale Flask
+├── co2_emissions.db           # Database SQLite con i dati CO2
+├── database.py                # Connessione DB e sessione SQLAlchemy
+├── models.py                  # Modelli SQLAlchemy per Country, Year, Emission
+├── requirements.txt           # Librerie necessarie
+├── runtime.txt                # Versione Python per deployment (Render, Heroku)
+├── README.md                  # Documentazione del progetto
+├── .gitignore                 # File e cartelle da ignorare da Git
+├── templates/                 # Template HTML Flask (Jinja2)
+│   ├── index.html             # Pagina principale con selezione paesi e AI
+│   └── plot.html              # Visualizzazione grafico interattivo Plotly
+└── __pycache__/               # File compilati Python (auto-generati)
+
+
+
 ```
 ## ▶️ Esecuzione locale
 Clona il repository:
