@@ -91,5 +91,5 @@ Ti piace il progetto?
 - Download grafici in altri formati
 - Annotazioni su eventi storici (Kyoto, Parigi)
 - Selezione multipla più fluida con rimozione
-- Confronto CO₂ per abitante o per superficie
+- Confronto CO₂ per abitante
 
