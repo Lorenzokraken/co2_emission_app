@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 from database import SessionLocal
 from models import Country, Year, Emission
@@ -44,7 +43,7 @@ def index():
             else:
                 data[e.country_id][e.year.year] = e.co2
 
-        global_emissions = session.query(Year.year, func.avg(Emission.co2))            .join(Emission.year).group_by(Year.year).order_by(Year.year).all()
+        global_emissions = session.query(Year.year, func.avg(Emission.co2)).join(Emission.year).group_by(Year.year).order_by(Year.year).all()
         global_df = pd.DataFrame(global_emissions, columns=["ds", "y"])
         global_df["ds"] = pd.to_datetime(global_df["ds"], format='%Y')
 
@@ -103,10 +102,10 @@ def index():
 
 @app.route("/predict", methods=["GET"])
 def predict():
-    country_id = request.args.get("country_id", default=1, type=int)
     session = SessionLocal()
 
     try:
+        country_id = int(request.args.get("country_id", 0))  # ← FIX
         country = session.query(Country).filter_by(country_id=country_id).first()
         country_name = country.name if country else f"Paese {country_id}"
 
@@ -129,7 +128,7 @@ def predict():
         future = model.make_future_dataframe(periods=36, freq='Y')
         forecast = model.predict(future)
 
-        global_emissions = session.query(Year.year, func.avg(Emission.co2))            .join(Emission.year).group_by(Year.year).order_by(Year.year).all()
+        global_emissions = session.query(Year.year, func.avg(Emission.co2)).join(Emission.year).group_by(Year.year).order_by(Year.year).all()
         global_df = pd.DataFrame(global_emissions, columns=["ds", "y"])
         global_df["ds"] = pd.to_datetime(global_df["ds"], format='%Y')
 

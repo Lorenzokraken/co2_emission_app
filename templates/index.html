@@ -86,26 +86,32 @@
     <div class="container">
       <h1>CO₂ Emissions</h1>
       <form id="main-form" method="POST" action="/">
-        <div id="countries-container">
-          <label for="country1">Country 1:</label>
-          <select name="country1" required>
-            {% for c in countries %}
-              <option value="{{ c.country_id }}"
-              {% if country_ids and c.country_id in country_ids %}selected{% endif %}>
-              {{ c.name }}
-              </option>
-            {% endfor %}
-          </select>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div id="countries-container" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px;">
+            <select name="country1" required>
+              {% for c in countries %}
+                <option value="{{ c.country_id }}"
+                {% if (country_ids and c.country_id in country_ids) or (not country_ids and c.name == 'United States') %}selected{% endif %}>
+                {{ c.name }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <button type="button" class="add-country" id="add-btn" onclick="addCountrySelect()">+</button>
+            <button type="button" class="add-country" id="remove-btn" onclick="removeCountrySelect()">&minus;</button>
+          </div>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center;">
+
+        <!-- <div style="display: flex; justify-content: center; align-items: center;">
           <button type="button" class="add-country" id="add-btn" onclick="addCountrySelect()">+</button>
           <button type="button" class="add-country" id="remove-btn" onclick="removeCountrySelect()">&minus;</button>
-        </div>
+        </div> -->
         <label for="year_start">From Year:</label>
         <select name="year_start" required>
           {% for y in years %}
             <option value="{{ y.year }}"
-            {% if year_start and y.year == year_start %}selected{% endif %}>
+            {% if (year_start and y.year == year_start) or (not year_start and y.year == 1923) %}selected{% endif %}>
             {{ y.year }}</option>
           {% endfor %}
         </select>
@@ -114,13 +120,12 @@
           {% for y in years %}
             {% if y.year >= 2023 %}
               <option value="{{ y.year }}"
-                {% if y.year == year_end %}selected{% endif %}>
-                {{ y.year }}
+              {% if (year_end and y.year == year_end) or (not year_end and y.year == 2023) %}selected{% endif %}>
+              {{ y.year }}
               </option>
             {% endif %}
           {% endfor %}
         </select>
-
 
         <div id="ai-toggle-label">
           <input type="checkbox" id="ai-toggle" name="ai"
@@ -163,29 +168,43 @@
       }
     }
 
-      document.getElementById("main-form").addEventListener("submit", function (e) {
-        const countryId = document.querySelector("select[name='country1']").value;
-        const yearEnd = document.getElementById("year_end").value;
+    document.getElementById("main-form").addEventListener("submit", function (e) {
+      const countryId = document.querySelector("select[name='country1']").value;
+      const yearEnd = document.getElementById("year_end").value;
 
-        if (aiToggle.checked && yearEnd === "2023" && countryId !== "") {
-          e.preventDefault();
-          window.location.href = `/predict?country_id=${countryId}`;
-        }
-      });
-
-
+      if (aiToggle.checked && yearEnd === "2023" && countryId !== "") {
+        e.preventDefault();
+        window.location.href = `/predict?country_id=${countryId}`;
+      }
+    });
 
     function addCountrySelect() {
       if (countryCount >= maxCountries || aiToggle.checked) return;
       countryCount++;
+
+      const countries = [
+        { id: 1, name: "United States" },
+        { id: 2, name: "China" },
+        { id: 3, name: "United Kingdom" },
+        { id: 4, name: "France" },
+        { id: 5, name: "Italy" }
+      ];
+
       const select = document.createElement("select");
       select.name = `country${countryCount}`;
       select.required = true;
-      const firstSelect = document.querySelector("select[name='country1']");
-      select.innerHTML = firstSelect.innerHTML;
+
+      countries.forEach(c => {
+        const option = document.createElement("option");
+        option.value = c.id;
+        option.textContent = c.name;
+        select.appendChild(option);
+      });
+
       container.appendChild(select);
       updateAIStatus();
     }
+
 
     function removeCountrySelect() {
       if (countryCount <= 1) return;
