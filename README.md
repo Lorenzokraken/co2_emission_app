@@ -1,3 +1,5 @@
+# DEPRECATED: è DISPONDIBILE UNA NUOVA VERSIONE DELLA WEBAPP -> https://github.com/Lorenzokraken/co2app_v2
+
 ## 📊 CO₂ Emissions Insights 
 Visualizzazione interattiva e previsioni delle emissioni di anidride carbonica (CO₂) per paese e periodo.
 L'app è sviluppata in Python con Flask, Plotly e Prophet ed è progettata per un'esperienza utente elegante e responsiva.
